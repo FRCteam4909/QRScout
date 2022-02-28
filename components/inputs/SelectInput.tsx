@@ -3,7 +3,7 @@ import BaseInputProps from './BaseInputProps'
 
 export interface SelectInputProps extends BaseInputProps {
   options: Record<string, string>
-  defaultValue: string
+  defaultValue: string //@todo this doesn't seem to be used
 }
 
 export default function SelectInput(data: SelectInputProps) {

@@ -6,6 +6,7 @@ import NumberInput from './NumberInput'
 import RangeInput from './RangeInput'
 import SelectInput from './SelectInput'
 import StringInput from './StringInput'
+import FieldImageInput from "./FieldImageInput"
 
 export interface ConfigurableInputProps extends BaseInputProps {}
 
@@ -50,6 +51,14 @@ export default function ConfigurableInput(props: ConfigurableInputProps) {
           onChange={handleChange}
         />
       )
+     case 'field_image':
+     return (
+       <FieldImageInput
+         key={props.title}
+         {...props}
+         onChange={handleChange}
+       />
+       )
     default:
       return (
         <div className="py-2 px-1">

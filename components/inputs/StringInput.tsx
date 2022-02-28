@@ -3,6 +3,7 @@ import BaseInputProps from './BaseInputProps'
 
 export interface StringInputProps extends BaseInputProps {
   maxSize?: number
+  defaultValue?: string
 }
 
 export default function StringInput(data: StringInputProps) {

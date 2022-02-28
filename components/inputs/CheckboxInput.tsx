@@ -2,7 +2,7 @@ import React from 'react'
 import BaseInputProps from './BaseInputProps'
 
 export interface BoolInputProps extends BaseInputProps {
-  defaultValue?: boolean
+  defaultValue?: boolean //@todo not used?
 }
 
 export default function Checkbox(data: BoolInputProps) {

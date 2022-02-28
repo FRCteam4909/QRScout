@@ -23,10 +23,10 @@ export interface InputProps {
   code: string
   disabled?: boolean
   value?: any
-  choices?: Record<string, string>
-  defaultValue?: any
-  min?: number
-  max?: number
+  // choices?: Record<string, string>
+  // defaultValue?: any
+  // min?: number
+  // max?: number
 }
 
 export type InputTypes =
@@ -37,3 +37,4 @@ export type InputTypes =
   | 'select'
   | 'counter'
   | 'image'
+  | 'field_image'

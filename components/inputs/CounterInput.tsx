@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import BaseInputProps from './BaseInputProps'
 
 export interface CounterInputProps extends BaseInputProps {
-  min?: number
-  max?: number
+  min?: number //@todo not used?
+  max?: number //@todo not used?
   step?: number
-  defaultValue?: number
+  defaultValue?: number //@todo not used?
 }
 
 export default function CounterInput(data: CounterInputProps) {
