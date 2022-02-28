@@ -3,16 +3,17 @@ import BaseInputProps from './BaseInputProps'
 
 import fieldImage from '../../config/2022/field_image.png'
 
-export interface Point {x:number,y:number}
+export interface Point {x: number, y: number}
 
 export interface FieldImageProps extends BaseInputProps {
   resolutionWidth?: number
   resolutionHeight?: number
   maxSelections?: number
   defaultValue?: Point[]
+  onChange: any
 }
 
-function getMousePos(canvas, evt) {
+function getMousePos(canvas:HTMLCanvasElement, evt: React.MouseEvent<HTMLElement>) {
   const rect = canvas.getBoundingClientRect();
   return {
     x: evt.clientX - rect.left,
@@ -31,9 +32,9 @@ function map(current: number, in_min: number, in_max: number, out_min: number, o
 
 class FieldImageInput extends React.Component {
   data: FieldImageProps;
-  value: Point[];
+  value: Point[] | null;
   rawPoints: Point[];
-  canvas: any;
+  canvas: React.RefObject<HTMLCanvasElement>;
   img: any;
 
   constructor(data: FieldImageProps){
@@ -45,22 +46,26 @@ class FieldImageInput extends React.Component {
     this.canvas = React.createRef();
     this.img = React.createRef();
   }
-  handleClick(event: Event) {
+  handleClick(event: React.MouseEvent<HTMLElement>) {
     //Resolution height and width
     const resWidth = this.data.resolutionWidth || 12;
     const resHeight = this.data.resolutionHeight || 6;
 
     const canvas = this.canvas.current;
+    if (!canvas) {
+      console.error("canvas is null");
+      return;
+    }
     const canvasBounds = canvas.getBoundingClientRect();
 
-    const {x,y} = getMousePos(event.target, event)
+    const {x,y} = getMousePos(event.target as HTMLCanvasElement, event)
 
     if (!this.value) {
       this.value = [];
     }
 
-    if (!this.data.maxSelections && this.value.length > this.data.maxSelections) {
-      return; // can't add any more
+    if (this.data.maxSelections && this.value.length >= this.data.maxSelections) {
+      return; // can't add any more, hit limit
     }
 
     this.value.push({
@@ -77,7 +82,15 @@ class FieldImageInput extends React.Component {
   drawPoint(pt: Point) {
     const radius = 5;
     const canvas = this.canvas.current;
+    if (!canvas) {
+      console.error("canvas is null");
+      return;
+    }
     const ctx = canvas.getContext("2d")
+    if (!ctx) {
+      console.error("getContext(2d) is null");
+      return;
+    }
     ctx.beginPath();
     ctx.arc(pt.x, pt.y, radius, 0, 2 * Math.PI, false);
     ctx.lineWidth = 1;
@@ -91,7 +104,15 @@ class FieldImageInput extends React.Component {
 
   drawFieldImage() {
     const canvas = this.canvas.current;
+    if (!canvas) {
+      console.error("canvas is null");
+      return;
+    }
     const ctx = canvas.getContext("2d")
+    if (!ctx) {
+      console.error("getContext(2d) is null");
+      return;
+    }
     const img = this.img.current
 
     const canvasBounds = canvas.getBoundingClientRect();
@@ -112,7 +133,9 @@ class FieldImageInput extends React.Component {
 
   undo() {
     //remove last point
-    this.value.pop()
+    if (this.value) {
+      this.value.pop()
+    }
     this.rawPoints.pop()
     this.data.onChange(this.value);
 

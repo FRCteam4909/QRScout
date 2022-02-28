@@ -15,7 +15,7 @@ export interface SectionProps {
   fields: InputProps[]
 }
 
-export interface InputProps {
+export interface InputProps extends React.Props<any> {
   title: string
   type: InputTypes
   required: boolean
@@ -24,7 +24,7 @@ export interface InputProps {
   disabled?: boolean
   value?: any
   // choices?: Record<string, string>
-  // defaultValue?: any
+  defaultValue?: any
   // min?: number
   // max?: number
 }

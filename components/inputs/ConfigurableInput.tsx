@@ -8,7 +8,13 @@ import SelectInput from './SelectInput'
 import StringInput from './StringInput'
 import FieldImageInput from "./FieldImageInput"
 
-export interface ConfigurableInputProps extends BaseInputProps {}
+export interface ConfigurableInputProps extends BaseInputProps {
+  choices?: Record<string, string>
+  defaultValue?: any
+  min?: number
+  max?: number
+  onChange: (value: any) => void
+}
 
 export default function ConfigurableInput(props: ConfigurableInputProps) {
   function handleChange(data: any) {
@@ -56,7 +62,7 @@ export default function ConfigurableInput(props: ConfigurableInputProps) {
        <FieldImageInput
          key={props.title}
          {...props}
-         onChange={handleChange}
+         // onChange={handleChange}
        />
        )
     default:
