@@ -20,7 +20,7 @@ const prematchSection: SectionProps = {
       required: true,
       code: 'scouter',
     },
-    { title: 'Event Code', type: 'text', required: true, code: 'eventCode' },
+    // { title: 'Event Code', type: 'text', required: true, code: 'eventCode' },
     {
       title: 'Match Level',
       type: 'select',
