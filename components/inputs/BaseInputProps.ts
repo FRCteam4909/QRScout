@@ -6,6 +6,7 @@ export default interface BaseInputProps extends InputProps {
 export interface Config {
   title: string
   page_title: string
+  color: string
   sections: SectionProps[]
 }
 

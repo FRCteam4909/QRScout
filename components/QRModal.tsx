@@ -35,8 +35,6 @@ export default function QRModal(props: QRModalProps) {
                     stroke-width="2"
                     stroke="currentColor"
                     fill="none"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
                   >
                     <path stroke="none" d="M0 0h24v24H0z" />{' '}
                     <rect x="8" y="8" width="12" height="12" rx="2" />{' '}

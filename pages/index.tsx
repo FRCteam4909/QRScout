@@ -185,7 +185,7 @@ export default function Home() {
 
       <main className="flex w-full flex-1 flex-col items-center justify-center px-4 text-center">
         <h1 className="font-sans text-6xl font-bold">
-          <div className="text-red-600">{formData.page_title}</div>
+          <div style={{color: formData.color}}>{formData.page_title}</div>
         </h1>
         <QRModal
           show={showQR}
