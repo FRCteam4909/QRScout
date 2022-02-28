@@ -7,6 +7,13 @@
       "name": "Autonomous",
       "fields": [
         {
+          "code": "bb",
+          "title": "Test",
+          "type": "field_image",
+          "defaultValue": "",
+          "required": true
+        },
+        {
           "code": "at",
           "title": "Taxied?",
           "type": "boolean",
