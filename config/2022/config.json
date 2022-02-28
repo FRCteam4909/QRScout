@@ -4,15 +4,68 @@
   "page_title": "Rapid React",
   "sections": [
     {
-      "name": "Autonomous",
+      "name": "Prematch",
       "fields": [
         {
-          "code": "bb",
-          "title": "Test",
+          "title": "Scout Name",
+          "type": "text",
+          "required": true,
+          "code": "nm"
+        },
+        {
+          "title": "Match Level",
+          "type": "select",
+          "required": true,
+          "code": "matchLevel",
+          "choices": {
+            "qm": "Quals",
+            "ef": "Eighth Final",
+            "qf": "Quarter Final",
+            "sf": "Semi Final",
+            "f": "Final"
+          },
+          "defaultValue": "qm"
+        },
+        {
+          "title": "Match Number",
+          "type": "number",
+          "required": true,
+          "code": "matchNumber"
+        },
+        {
+          "title": "Robot",
+          "type": "select",
+          "required": true,
+          "code": "robot",
+          "choices": {
+            "r1": "Red 1",
+            "b1": "Blue 1",
+            "r2": "Red 2",
+            "b2": "Blue 2",
+            "r3": "Red 3",
+            "b3": "Blue 3"
+          },
+          "defaultValue": "r1"
+        },
+        {
+          "title": "Team Number",
+          "type": "number",
+          "required": true,
+          "code": "teamNumber"
+        },
+        {
+          "code": "st",
+          "title": "Starting Location",
           "type": "field_image",
           "defaultValue": "",
-          "required": true
-        },
+          "required": true,
+          "maxSelections": 1
+        }
+      ]
+    },
+    {
+      "name": "Autonomous",
+      "fields": [
         {
           "code": "at",
           "title": "Taxied?",
