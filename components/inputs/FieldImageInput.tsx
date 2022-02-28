@@ -3,11 +3,13 @@ import BaseInputProps from './BaseInputProps'
 
 import fieldImage from '../../config/2022/field_image.png'
 
+export interface Point {x:number,y:number}
+
 export interface FieldImageProps extends BaseInputProps {
   resolutionWidth?: number
   resolutionHeight?: number
   maxSelections?: number
-  defaultValue?: {x:number,y:number}[]
+  defaultValue?: Point[]
 }
 
 function getMousePos(canvas, evt) {
@@ -28,15 +30,22 @@ function map(current: number, in_min: number, in_max: number, out_min: number, o
 }
 
 class FieldImageInput extends React.Component {
+  data: FieldImageProps;
+  value: Point[];
+  rawPoints: Point[];
+  canvas: any;
+  img: any;
+
   constructor(data: FieldImageProps){
     super(data);
     this.data = data;
     this.value = data.defaultValue || [];
+    this.rawPoints = [];
 
     this.canvas = React.createRef();
     this.img = React.createRef();
   }
-  handleClick(event) {
+  handleClick(event: Event) {
     //Resolution height and width
     const resWidth = this.data.resolutionWidth || 12;
     const resHeight = this.data.resolutionHeight || 6;
@@ -55,17 +64,22 @@ class FieldImageInput extends React.Component {
     }
 
     this.value.push({
-      x: Math.round(map(x,0,canvasBounds.width, 0, resWidth)),
-      y: Math.round(map(y,0,canvasBounds.height, 0, resHeight))
+      x: Math.round(map(x, 0, canvasBounds.width, 0, resWidth)),
+      y: Math.round(map(y, 0, canvasBounds.height, 0, resHeight))
     })
+    this.rawPoints.push({x,y})
 
     this.data.onChange(this.value);
 
-    const radius = 5;
+    this.drawPoint({x,y})
+  }
 
+  drawPoint(pt: Point) {
+    const radius = 5;
+    const canvas = this.canvas.current;
     const ctx = canvas.getContext("2d")
     ctx.beginPath();
-    ctx.arc(x, y, radius, 0, 2 * Math.PI, false);
+    ctx.arc(pt.x, pt.y, radius, 0, 2 * Math.PI, false);
     ctx.lineWidth = 1;
     ctx.strokeStyle = '#FFFFFF';
     ctx.stroke();
@@ -82,10 +96,24 @@ class FieldImageInput extends React.Component {
 
     const canvasBounds = canvas.getBoundingClientRect();
     ctx.drawImage(img, 0, 0, canvasBounds.width, canvasBounds.height)
+
+    for (let pt of this.rawPoints) {
+      this.drawPoint(pt)
+    }
   }
 
   clear() {
     this.value = null;
+    this.rawPoints = [];
+    this.data.onChange(this.value);
+
+    this.drawFieldImage();
+  }
+
+  undo() {
+    //remove last point
+    this.value.pop()
+    this.rawPoints.pop()
     this.data.onChange(this.value);
 
     this.drawFieldImage();
@@ -96,7 +124,8 @@ class FieldImageInput extends React.Component {
       <div>
         <canvas ref={this.canvas} style={{width: "100%"}} onClick={this.handleClick.bind(this)}/>
         <img ref={this.img} src={fieldImage.src} className="hidden" />
-        <button className="focus:shadow-outline px-2 px-1 rounded bg-gray-500 text-2xl text-white hover:bg-red-700 focus:outline-none" type="button" onClick={this.clear.bind(this)}>Clear</button>
+        <button className="focus:shadow-outline px-2 mx-1 py-1 rounded bg-gray-500 text-2xl text-white hover:bg-red-700 focus:outline-none" type="button" onClick={this.clear.bind(this)}>Clear</button>
+        <button className="focus:shadow-outline px-2 mx-1 py-1 rounded bg-gray-500 text-2xl text-white hover:bg-red-700 focus:outline-none" type="button" onClick={this.undo.bind(this)}>Undo</button>
       </div>
     )
   }
