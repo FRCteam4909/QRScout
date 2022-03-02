@@ -35,7 +35,6 @@ class FieldImageInput extends React.Component {
   value: Point[] | null;
   rawPoints: Point[];
   canvas: React.RefObject<HTMLCanvasElement>;
-  img: any;
 
   constructor(data: FieldImageProps){
     super(data);
@@ -44,8 +43,8 @@ class FieldImageInput extends React.Component {
     this.rawPoints = [];
 
     this.canvas = React.createRef();
-    this.img = React.createRef();
   }
+
   handleClick(event: React.MouseEvent<HTMLElement>) {
     //Resolution height and width
     const resWidth = this.data.resolutionWidth || 12;
@@ -113,14 +112,18 @@ class FieldImageInput extends React.Component {
       console.error("getContext(2d) is null");
       return;
     }
-    const img = this.img.current
 
-    const canvasBounds = canvas.getBoundingClientRect();
-    ctx.drawImage(img, 0, 0, canvasBounds.width, canvasBounds.height)
+    let imageObj1 = new Image();
+    imageObj1.src = fieldImage.src
+    imageObj1.onload = () => {
+      const canvasBounds = canvas.getBoundingClientRect();
+      ctx.drawImage(imageObj1, 0, 0, canvasBounds.width, canvasBounds.height)
 
-    for (let pt of this.rawPoints) {
-      this.drawPoint(pt)
+      for (let pt of this.rawPoints) {
+        this.drawPoint(pt)
+      }
     }
+
   }
 
   clear() {
@@ -146,7 +149,6 @@ class FieldImageInput extends React.Component {
     return (
       <div>
         <canvas ref={this.canvas} style={{width: "100%"}} onClick={this.handleClick.bind(this)}/>
-        <img ref={this.img} src={fieldImage.src} className="hidden" />
         <button className="focus:shadow-outline px-2 mx-1 py-1 rounded bg-gray-500 text-2xl text-white hover:bg-red-700 focus:outline-none" type="button" onClick={this.clear.bind(this)}>Clear</button>
         <button className="focus:shadow-outline px-2 mx-1 py-1 rounded bg-gray-500 text-2xl text-white hover:bg-red-700 focus:outline-none" type="button" onClick={this.undo.bind(this)}>Undo</button>
       </div>
