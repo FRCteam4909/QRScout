@@ -134,7 +134,12 @@ export default function Home() {
     return formData.sections
       .map((s) => s.fields)
       .flat()
-      .map((v) => `${JSON.stringify(v.value)}`)
+      .map((v) => {
+        if (typeof v.value == "object") {
+          return JSON.stringify(v.value)
+        }
+        return `${v.value}`
+      })
       .join('\t')
   }
 
