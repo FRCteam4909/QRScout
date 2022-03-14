@@ -79,6 +79,7 @@
           "title": "Upper Cargo Scored",
           "type": "counter",
           "defaultValue": 0,
+          "min": 0,
           "required": false
         },
         {
@@ -86,6 +87,7 @@
           "title": "Lower Cargo Scored",
           "type": "counter",
           "defaultValue": 0,
+          "min": 0,
           "required": false
         },
         {
@@ -110,6 +112,7 @@
           "title": "Upper Cargo Scored",
           "type": "counter",
           "defaultValue": 0,
+          "min": 0,
           "required": false
         },
         {
@@ -122,6 +125,7 @@
           "title": "Lower Cargo Scored",
           "type": "counter",
           "defaultValue": 0,
+          "min": 0,
           "required": false
         },
         {
@@ -129,6 +133,7 @@
           "title": "Upper Cargo Missed",
           "type": "counter",
           "defaultValue": 0,
+          "min": 0,
           "required": false
         },
         {
@@ -136,6 +141,7 @@
           "title": "Lower Cargo Missed",
           "type": "counter",
           "defaultValue": 0,
+          "min": 0,
           "required": false
         },
         {
