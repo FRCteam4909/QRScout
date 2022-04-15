@@ -91,11 +91,6 @@
           "required": false
         },
         {
-          "code": "auto_shots",
-          "title": "Shot Locations",
-          "type": "field_image"
-        },
-        {
           "code": "ac",
           "title": "Picked up more cargo?",
           "type": "boolean",
@@ -114,11 +109,6 @@
           "defaultValue": 0,
           "min": 0,
           "required": false
-        },
-        {
-          "code": "high_shots",
-          "title": "Shot Locations",
-          "type": "field_image"
         },
         {
           "code": "tl",
