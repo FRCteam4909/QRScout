@@ -17,8 +17,9 @@ export default function SelectInput(data: SelectInputProps) {
       name={data.title}
       id={data.title}
       onChange={handleSelect}
-      value={data.value}
+      value={data.value || data.defaultValue}
     >
+      <option disabled selected>-- select an option --</option>
       {Object.keys(data.options).map((o) => {
         return (
           <option key={o} value={o}>

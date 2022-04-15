@@ -45,8 +45,7 @@
             "b2": "Blue 2",
             "r3": "Red 3",
             "b3": "Blue 3"
-          },
-          "defaultValue": "r1"
+          }
         },
         {
           "title": "Team Number",
